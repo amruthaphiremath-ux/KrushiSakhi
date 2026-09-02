@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — KrishiSakhi{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
+
+{% block head_extra %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="dash-header">
+  <div>
+    <h1>Welcome, {{ session.get('username') }} 👋</h1>
+    <p>Pick a crop and see where prices are headed.</p>
+  </div>
+</div>
+
+<div class="dash-grid">
+  <section class="panel form-panel">
+    <h2>Crop Price Prediction</h2>
+
+    <label for="crop">Select Crop</label>
+    <select id="crop">
+      <option value="">-- Choose a Crop --</option>
+      {% for crop in crops %}
+        <option value="{{ crop }}">{{ crop.capitalize() }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="months">Months Ahead</label>
+    <input type="number" id="months" min="1" max="24" value="6">
+
+    <button id="predictBtn">Predict Price</button>
+    <p id="errorMsg" class="error"></p>
+
+    {% if not crops %}
+      <p class="warning-note">⚠️ No crop data found on the server. If you're the
+      admin: confirm the <code>data/</code> folder with crop CSVs was deployed.</p>
+    {% endif %}
+  </section>
+
+  <section class="panel results-panel">
+    <h2>Prediction Results</h2>
+    <table id="resultsTable">
+      <thead>
+        <tr><th>Month</th><th>Year</th><th>Predicted Price (₹)</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="panel chart-panel">
+    <h2>Price Trend</h2>
+    <canvas id="priceChart" height="120"></canvas>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

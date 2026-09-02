@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{% block title %}KrishiSakhi{% endblock %}</title>
+
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <meta name="theme-color" content="#1e7d34">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='icon-192.png') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+  <nav class="navbar">
+    <a href="{{ url_for('home') }}" class="nav-brand">
+      <span class="nav-logo">🌾</span> KrishiSakhi
+    </a>
+    <div class="nav-links">
+      <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
+      <a href="{{ url_for('home') }}#about">About</a>
+      {% if session.get('username') %}
+        <a href="{{ url_for('dashboard') }}" class="nav-cta-outline">Dashboard</a>
+        <a href="{{ url_for('logout') }}" class="nav-cta">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="nav-cta-outline">Login</a>
+        <a href="{{ url_for('register') }}" class="nav-cta">Get Started</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for msg in messages %}
+            <div class="flash-msg">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">🌾 KrishiSakhi</div>
+      <p>AI-powered price prediction for agriculture products.</p>
+      <p class="footer-note">Sri Krishna Institute of Technology &middot; Final Year Project</p>
+    </div>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js");
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}KrishiSakhi — AI-Powered Crop Price Prediction{% endblock %}
+{% block body_class %}landing{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-badge">🌱 AI for Indian Farmers</span>
+    <h1>Know Tomorrow's Crop Price, Today.</h1>
+    <p>KrishiSakhi uses deep learning to forecast crop prices up to 24 months
+       ahead — so you know exactly when to sell, not just what today's price is.</p>
+    <div class="hero-actions">
+      {% if session.get('username') %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard →</a>
+      {% else %}
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started Free</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+      {% endif %}
+    </div>
+    <div class="hero-stats">
+      <div><strong>24</strong><span>Months Forecast</span></div>
+      <div><strong>6</strong><span>Crops Supported</span></div>
+      <div><strong>8</strong><span>AI Algorithms</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-row">
+        <span>🌾 Rice</span>
+        <span class="trend-up">↑ ₹1,932</span>
+      </div>
+      <div class="hero-chart-bars">
+        <span style="height:40%"></span><span style="height:55%"></span>
+        <span style="height:48%"></span><span style="height:68%"></span>
+        <span style="height:62%"></span><span style="height:80%"></span>
+      </div>
+      <div class="hero-card-caption">6-Month Price Trend</div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt" id="how-it-works">
+  <h2 class="section-title">How It Works</h2>
+  <p class="section-sub">From raw market data to a forecast, in four simple steps.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Pick a Crop</h3>
+      <p>Choose from supported crops and select how many months ahead you want to forecast.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>AI Analyzes History</h3>
+      <p>An LSTM neural network studies years of price and rainfall data to learn seasonal patterns.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Rolling Forecast</h3>
+      <p>The model predicts month by month, feeding each result back in to forecast further ahead.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h3>See the Trend</h3>
+      <p>Get a clear table and chart — know exactly when prices are expected to peak.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <h2 class="section-title">Why KrishiSakhi</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📈</div>
+      <h3>Accurate Forecasting</h3>
+      <p>LSTM deep learning outperforms simple averages, capturing seasonal and rainfall-linked price swings.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗓️</div>
+      <h3>Plan Months Ahead</h3>
+      <p>Forecast 1 to 24 months out — decide whether to sell now or wait for a better price.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Works Everywhere</h3>
+      <p>Install it as an app on your phone or use it in any browser — no technical knowledge needed.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Your Own Dashboard</h3>
+      <p>Create a free account to save your predictions and revisit them anytime.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Ready to plan your next harvest sale?</h2>
+  {% if session.get('username') %}
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Open Dashboard</a>
+  {% else %}
+    <a href="{{ url_for('register') }}" class="btn btn-primary">Create Free Account</a>
+  {% endif %}
+</section>
+
+{% endblock %}
